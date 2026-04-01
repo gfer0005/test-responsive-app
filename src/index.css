@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+
+@font-face {
+  font-family: 'Belfius21';
+  src: url('./assets/fonts/Belfius21-Regular.otf') format('opentype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Belfius21';
+  src: url('./assets/fonts/Belfius21-Bold.otf') format('opentype');
+  font-weight: 700;
+}
+
+:root {
+  --color-belfius: #C30045;
+  --color-belfius-secondary: #51626F;
+  --color-belfius-light-grey: #E8EBED;
+}
+
+@layer utilities {
+  .bg-dotted-pattern {
+    background-color: #f8f9fa; /* Light gray base */
+    background-image: radial-gradient(#d1d5db 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  /* .bg-belfius{
+    background-color: #C30045
+  }
+  .bg-belfius-darkred{
+    background-color: #8F0033
+  }
+  .bg-belfius-secondary{
+    background-color: #51626F
+  }
+  .bg-belfius-lightgrey{
+    background-color: #E8EBED
+  } */
+}
+
+body {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
