@@ -145,7 +145,7 @@ export function Table<T extends Record<string, any>>({
   };
 
   return (
-    <div className="w-full h-full bg-white rounded-4xl border border-gray-200 shadow-lg backdrop-blur-2xl flex flex-col overflow-hidden font-sans">
+    <div className="w-full bg-white rounded-4xl border border-gray-200 shadow-lg backdrop-blur-2xl flex flex-col font-sans transition-all">
       <style>{`
         .hide-scrollbar::-webkit-scrollbar {
           display: none;
@@ -163,7 +163,7 @@ export function Table<T extends Record<string, any>>({
         }}
       >
         <table
-          className="w-full text-left border-collapse whitespace-normal lg:whitespace-nowrap table-fixed lg:table-auto md:table-auto"
+          className="w-full text-left border-collapse table-auto break-words"
           style={{ fontFamily: "Belfius21, sans-serif" }}
         >
           <thead className="sticky top-0 bg-[#c30045] z-10 border-b border-gray-200">
@@ -171,17 +171,17 @@ export function Table<T extends Record<string, any>>({
               {columns.map((col) => (
                 <th
                   key={String(col.key)}
-                  className={`py-1 px-1 text-[10px] leading-tight lg:py-3 lg:px-5 lg:text-sm font-semibold text-white lg:tracking-wide ${
+                  className={`py-2 px-2 text-xs leading-tight lg:py-3 lg:px-4 lg:text-sm font-semibold text-white tracking-wide ${
                     col.sortable
-                      ? "cursor-pointer hover:bg-[#c30045] transition-colors select-none group"
+                      ? "cursor-pointer hover:bg-[#a00038] transition-colors select-none group"
                       : ""
                   } ${col.headerClassName || ""}`}
                   onClick={() => col.sortable && handleSort(String(col.key))}
                 >
-                  <div className="flex items-center gap-0.5 lg:gap-2">
+                  <div className="flex items-center gap-1 lg:gap-2">
                     {col.title}
                     {col.sortable && (
-                      <span className="flex items-center text-white">
+                      <span className="flex items-center text-white shrink-0">
                         {sortKey === col.key ? (
                           sortDirection === "asc" ? (
                             <ArrowUp className="text-white w-3 h-3 lg:w-4 lg:h-4" />
@@ -189,7 +189,7 @@ export function Table<T extends Record<string, any>>({
                             <ArrowDown className="text-white w-3 h-3 lg:w-4 lg:h-4" />
                           )
                         ) : (
-                          <ArrowDown className="text-white w-3 h-3 lg:w-4 lg:h-4 opacity-80 group-hover:opacity-100 group-hover:text-slate-600 transition-all" />
+                          <ArrowDown className="text-white w-3 h-3 lg:w-4 lg:h-4 opacity-80 group-hover:opacity-100 group-hover:text-slate-300 transition-all" />
                         )}
                       </span>
                     )}
@@ -204,19 +204,21 @@ export function Table<T extends Record<string, any>>({
                 <tr
                   key={rowIndex}
                   onClick={() => onRowClick?.(row)}
-                  className={`transition-colors ${onRowClick ? "cursor-pointer hover:bg-gray-200 active:bg-slate-200/50" : "hover:bg-slate-50/50"}`}
+                  className={`h-[72px] transition-colors ${onRowClick ? "cursor-pointer hover:bg-gray-200 active:bg-slate-200/50" : "hover:bg-slate-50/50"}`}
                 >
                   {columns.map((col) => (
                     <td
                       key={String(col.key)}
-                      className={`py-1 px-1 text-[10px] leading-tight lg:py-4 lg:px-5 lg:text-sm text-slate-800 wrap-break-word ${col.cellClassName || ""}`}
+                      className={`h-[72px] py-2 px-2 text-[11px] leading-[14px] lg:px-4 lg:text-sm lg:leading-normal text-slate-800 break-words whitespace-normal align-middle ${col.cellClassName || ""}`}
                       onClick={(e: React.MouseEvent) => {
                         if (col.key === "actions" || col.key === "comments") {
                           e.stopPropagation();
                         }
                       }}
                     >
-                      {col.render ? col.render(row) : row[col.key]}
+                      <div className="line-clamp-3 overflow-hidden text-ellipsis">
+                        {col.render ? col.render(row) : row[col.key]}
+                      </div>
                     </td>
                   ))}
                 </tr>

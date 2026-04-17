@@ -2,17 +2,19 @@ import { useState, useEffect } from 'react';
 
 export default function useWindowSize() {
   const [windowSize, setWindowSize] = useState({
-    width: typeof window !== 'undefined' ? window.screen.width : 0, // Utilise la résolution de l'écran Windows
+    width: typeof window !== 'undefined' ? window.innerWidth : 0,
+    height: typeof window !== 'undefined' ? window.innerHeight : 0,
   });
 
   const [isSmallResolution, setIsSmallResolution] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      const width = window.screen.width; // Met à jour avec la largeur de l'écran Windows
-      setWindowSize({ width });
-      setIsSmallResolution(width < 1540); // Détecte une petite résolution (par exemple, < 1020px)
-      console.log('Largeur actuelle de l\'écran :', width);
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      setWindowSize({ width, height });
+      setIsSmallResolution(width < 1540); // Détecte une petite résolution
+      console.log(`Dimensions actuelles de l'écran: ${width}x${height}`);
     };
 
     window.addEventListener('resize', handleResize);
