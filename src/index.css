@@ -17,6 +17,7 @@
   --color-belfius: #C30045;
   --color-belfius-secondary: #51626F;
   --color-belfius-light-grey: #E8EBED;
+  --z-notifications: 9999;
 }
 
 @layer utilities {
@@ -25,18 +26,15 @@
     background-image: radial-gradient(#d1d5db 1px, transparent 1px);
     background-size: 20px 20px;
   }
-  /* .bg-belfius{
-    background-color: #C30045
-  }
-  .bg-belfius-darkred{
-    background-color: #8F0033
-  }
-  .bg-belfius-secondary{
-    background-color: #51626F
-  }
-  .bg-belfius-lightgrey{
-    background-color: #E8EBED
-  } */
+}
+
+/* Ajout des styles globaux pour les résolutions */
+body.small-resolution {
+  font-size: 50%; /* Divise la taille de la police par 2 */
+}
+
+body.normal-resolution {
+  font-size: 100%; /* Taille normale */
 }
 
 body {

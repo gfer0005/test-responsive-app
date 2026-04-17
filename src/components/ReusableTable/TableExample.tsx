@@ -39,7 +39,7 @@ function UsersTableExample() {
   ];
 
   return (
-    <div className="h-[420px]">
+    <div className="h-105">
       <Table<User>
         data={pageData}
         columns={columns}
@@ -83,7 +83,7 @@ function ProductsTableExample() {
   ];
 
   return (
-    <div className="h-[420px]">
+    <div className="h-105">
       <Table<Product>
         data={pageData}
         columns={columns}
@@ -136,7 +136,7 @@ function OrdersTableExample() {
   ];
 
   return (
-    <div className="h-[420px]">
+    <div className="h-105">
       <Table<Order>
         data={pageData}
         columns={columns}

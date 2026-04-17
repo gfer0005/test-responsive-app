@@ -32,9 +32,14 @@ declare module 'react' {
       'geui-switch-button': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
         labelPosition?: 'top' | 'right' | 'bottom' | 'left';
         labelAlignment?: 'start' | 'center' | 'end';
+        checked?: string; // Updated to string to match `auto_run` and `manco`
+        onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
       };
       'geui-vertical-layout': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-      
+      'geui-link': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
+        text?: string;
+      };
+      'geui-text-block': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
     }
   }
 }

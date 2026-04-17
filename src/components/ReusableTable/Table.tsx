@@ -1,7 +1,7 @@
-import React, { useState, useMemo } from 'react';
-import { ArrowDown, ArrowUp, ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useState, useMemo } from "react";
+import { ArrowDown, ArrowUp, ChevronLeft, ChevronRight } from "lucide-react";
 
-export type SortDirection = 'asc' | 'desc' | null;
+export type SortDirection = "asc" | "desc" | null;
 
 export interface Column<T> {
   key: keyof T | string;
@@ -19,6 +19,7 @@ export interface TableProps<T> {
   itemsPerPage?: number;
   currentPage: number;
   onPageChange: (page: number) => void;
+  onRowClick?: (item: T) => void;
   scrollable?: boolean;
   maxHeight?: string;
 }
@@ -30,22 +31,23 @@ export function Table<T extends Record<string, any>>({
   itemsPerPage = 10,
   currentPage,
   onPageChange,
+  onRowClick,
   scrollable = false,
-  maxHeight = '500px',
-}: TableProps<T>) {
+  maxHeight = "500px",
+}: Readonly<TableProps<T>>) {
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<SortDirection>(null);
 
   const handleSort = (key: string) => {
     if (sortKey === key) {
-      if (sortDirection === 'asc') setSortDirection('desc');
-      else if (sortDirection === 'desc') {
+      if (sortDirection === "asc") setSortDirection("desc");
+      else if (sortDirection === "desc") {
         setSortDirection(null);
         setSortKey(null);
-      } else setSortDirection('asc');
+      } else setSortDirection("asc");
     } else {
       setSortKey(key);
-      setSortDirection('asc');
+      setSortDirection("asc");
     }
   };
 
@@ -58,12 +60,13 @@ export function Table<T extends Record<string, any>>({
       if (aVal === bVal) return 0;
 
       const compareResult = aVal > bVal ? 1 : -1;
-      return sortDirection === 'asc' ? compareResult : -compareResult;
+      return sortDirection === "asc" ? compareResult : -compareResult;
     });
   }, [data, sortKey, sortDirection]);
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const startIndex = totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
+  const startIndex =
+    totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
   const endIndex = Math.min(currentPage * itemsPerPage, totalItems);
 
   const renderPaginationBlocks = () => {
@@ -80,10 +83,23 @@ export function Table<T extends Record<string, any>>({
 
     if (startPage > 1) {
       pages.push(
-        <button key={1} onClick={() => onPageChange(1)} className="w-8 h-8 flex items-center justify-center text-sm rounded-md text-slate-700 hover:bg-slate-100 transition-colors">1</button>
+        <button
+          key={1}
+          onClick={() => onPageChange(1)}
+          className="w-8 h-8 flex items-center justify-center text-sm rounded-md text-slate-700 hover:bg-slate-100 transition-colors"
+        >
+          1
+        </button>,
       );
       if (startPage > 2) {
-        pages.push(<span key="dots1" className="w-8 h-8 flex items-center justify-center text-sm text-slate-700">...</span>);
+        pages.push(
+          <span
+            key="dots1"
+            className="w-8 h-8 flex items-center justify-center text-sm text-slate-700"
+          >
+            ...
+          </span>,
+        );
       }
     }
 
@@ -94,21 +110,34 @@ export function Table<T extends Record<string, any>>({
           onClick={() => onPageChange(i)}
           className={`w-8 h-8 flex items-center justify-center text-sm rounded-md transition-colors ${
             currentPage === i
-              ? 'border border-[#e81e62] text-[#e81e62] bg-[#fdf2f6] font-medium'
-              : 'text-slate-700 hover:bg-slate-100'
+              ? "border border-[#e81e62] text-[#e81e62] bg-[#fdf2f6] font-medium"
+              : "text-slate-700 hover:bg-slate-100"
           }`}
         >
           {i}
-        </button>
+        </button>,
       );
     }
 
     if (endPage < totalPages) {
       if (endPage < totalPages - 1) {
-        pages.push(<span key="dots2" className="w-8 h-8 flex items-center justify-center text-sm text-slate-700">...</span>);
+        pages.push(
+          <span
+            key="dots2"
+            className="w-8 h-8 flex items-center justify-center text-sm text-slate-700"
+          >
+            ...
+          </span>,
+        );
       }
       pages.push(
-        <button key={totalPages} onClick={() => onPageChange(totalPages)} className="w-8 h-8 flex items-center justify-center text-sm rounded-md text-slate-700 hover:bg-slate-100 transition-colors">{totalPages}</button>
+        <button
+          key={totalPages}
+          onClick={() => onPageChange(totalPages)}
+          className="w-8 h-8 flex items-center justify-center text-sm rounded-md text-slate-700 hover:bg-slate-100 transition-colors"
+        >
+          {totalPages}
+        </button>,
       );
     }
 
@@ -128,36 +157,39 @@ export function Table<T extends Record<string, any>>({
       `}</style>
       <div
         className={`w-full flex-1 hide-scrollbar ${scrollable ? "overflow-y-auto overflow-x-auto" : "overflow-x-auto"}`}
-        style={scrollable ? { maxHeight } : undefined}
+        style={{
+          maxHeight: scrollable ? maxHeight : "auto",
+          overflowX: "auto",
+        }}
       >
-        <table className="w-full text-left border-collapse whitespace-nowrap">
+        <table
+          className="w-full text-left border-collapse whitespace-normal lg:whitespace-nowrap table-fixed lg:table-auto md:table-auto"
+          style={{ fontFamily: "Belfius21, sans-serif" }}
+        >
           <thead className="sticky top-0 bg-[#c30045] z-10 border-b border-gray-200">
             <tr>
               {columns.map((col) => (
                 <th
                   key={String(col.key)}
-                  className={`py-3 px-5 text-sm font-semibold text-white tracking-wide ${
+                  className={`py-1 px-1 text-[10px] leading-tight lg:py-3 lg:px-5 lg:text-sm font-semibold text-white lg:tracking-wide ${
                     col.sortable
                       ? "cursor-pointer hover:bg-[#c30045] transition-colors select-none group"
                       : ""
                   } ${col.headerClassName || ""}`}
                   onClick={() => col.sortable && handleSort(String(col.key))}
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-0.5 lg:gap-2">
                     {col.title}
                     {col.sortable && (
                       <span className="flex items-center text-white">
                         {sortKey === col.key ? (
                           sortDirection === "asc" ? (
-                            <ArrowUp size={16} className="text-white" />
+                            <ArrowUp className="text-white w-3 h-3 lg:w-4 lg:h-4" />
                           ) : (
-                            <ArrowDown size={16} className="text-white" />
+                            <ArrowDown className="text-white w-3 h-3 lg:w-4 lg:h-4" />
                           )
                         ) : (
-                          <ArrowDown
-                            size={16}
-                            className="text-white opacity-80 group-hover:opacity-100 group-hover:text-slate-600 transition-all"
-                          />
+                          <ArrowDown className="text-white w-3 h-3 lg:w-4 lg:h-4 opacity-80 group-hover:opacity-100 group-hover:text-slate-600 transition-all" />
                         )}
                       </span>
                     )}
@@ -166,22 +198,39 @@ export function Table<T extends Record<string, any>>({
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100">
-            {sortedData.map((row, rowIndex) => (
-              <tr
-                key={rowIndex}
-                className="hover:bg-slate-50/50 transition-colors"
-              >
-                {columns.map((col) => (
-                  <td
-                    key={String(col.key)}
-                    className={`py-4 px-5 text-sm text-slate-700 ${col.cellClassName || ""}`}
-                  >
-                    {col.render ? col.render(row) : row[col.key]}
-                  </td>
-                ))}
+          <tbody className="divide-y divide-gray-200">
+            {sortedData.length > 0 ? (
+              sortedData.map((row, rowIndex) => (
+                <tr
+                  key={rowIndex}
+                  onClick={() => onRowClick?.(row)}
+                  className={`transition-colors ${onRowClick ? "cursor-pointer hover:bg-gray-200 active:bg-slate-200/50" : "hover:bg-slate-50/50"}`}
+                >
+                  {columns.map((col) => (
+                    <td
+                      key={String(col.key)}
+                      className={`py-1 px-1 text-[10px] leading-tight lg:py-4 lg:px-5 lg:text-sm text-slate-800 wrap-break-word ${col.cellClassName || ""}`}
+                      onClick={(e: React.MouseEvent) => {
+                        if (col.key === "actions" || col.key === "comments") {
+                          e.stopPropagation();
+                        }
+                      }}
+                    >
+                      {col.render ? col.render(row) : row[col.key]}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan={columns.length}
+                  className="py-4 px-5 text-center text-slate-500"
+                >
+                  No data found
+                </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

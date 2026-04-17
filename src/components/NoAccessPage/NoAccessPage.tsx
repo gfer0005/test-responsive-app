@@ -47,17 +47,17 @@ export const NoAccessPage: React.FC<NoAccessPageProps> = ({
     if (onContactClick) {
       onContactClick();
     } else {
-      window.location.href = `mailto:${contactEmail}`;
+      globalThis.location.href = `mailto:${contactEmail}`;
     }
   };
 
   return (
     <div 
-      className="fixed inset-0 w-full h-full flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat z-[9999]"
+      className="fixed inset-0 w-full h-full flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat z-9999"
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       {/* Overlay sombre avec flou pour la lisibilité */}
-      <div className="absolute inset-0 bg-black/30 backdrop-blur-[8px]" />
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
 
       <div className="relative z-10 flex flex-col items-center max-w-2xl px-6 text-center">
         {/* Titre avec animation d'entrée */}

@@ -42,8 +42,8 @@ export const LoadingPage: React.FC<LoadingPageProps> = ({ title = "Chargement...
             duration: 0.8, 
             ease: [0.16, 1, 0.3, 1] // Custom ease-out cubic
           }}
-          className="text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center tracking-wide mb-4"
-          
+          className="text-2xl md:text-xl lg:text-3xl font-bold text-white text-center tracking-wide mb-4"
+          style={{ fontFamily: 'Belfius21, sans-serif', fontWeight: 800 }}
         >
           {title}
         </motion.h1>

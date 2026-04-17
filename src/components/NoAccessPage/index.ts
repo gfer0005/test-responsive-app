@@ -1,4 +1,1 @@
-import { NoAccessPage } from './NoAccessPage';
-
-export { NoAccessPage };
-export default NoAccessPage;
+export {NoAccessPage, NoAccessPage as default} from './NoAccessPage';

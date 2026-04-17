@@ -35,6 +35,10 @@ interface ComboboxProps {
    * Custom CSS class for the container.
    */
   className?: string;
+  /**
+   * Custom CSS class for the dropdown menu.
+   */
+  dropdownClassName?: string;
 }
 
 /**
@@ -47,7 +51,8 @@ export const Combobox: React.FC<ComboboxProps> = ({
   onSelect,
   selected: externalSelected,
   maxWidth = "max-w-md",
-  className = ""
+  className = "",
+  dropdownClassName = "",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -129,7 +134,7 @@ export const Combobox: React.FC<ComboboxProps> = ({
           ${isOpen ? 'border-[#4b5563] shadow-md' : 'border-[#4b5563]'}
         `}
       >
-        <Search className="w-5 h-5 text-gray-800 mr-2 flex-shrink-0" />
+        <Search className="w-5 h-5 text-gray-800 mr-2 shrink-0" />
         
         <input
           ref={inputRef}
@@ -163,9 +168,9 @@ export const Combobox: React.FC<ComboboxProps> = ({
             animate={{ opacity: 1, y: 5, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="absolute z-50 w-full mt-2 bg-white border border-gray-200 rounded-2xl shadow-xl overflow-hidden"
+            className={`absolute z-50 w-full mt-2 bg-white border border-gray-200 rounded-2xl shadow-xl overflow-hidden ${dropdownClassName}`}
           >
-            <div className="max-h-[300px] overflow-y-auto p-2 scrollbar-thin scrollbar-thumb-gray-200">
+            <div className="max-h-75 overflow-y-auto p-2 scrollbar-thin scrollbar-thumb-gray-200">
               {filteredOptions.length > 0 ? (
                 filteredOptions.map((option) => (
                   <button
@@ -211,4 +216,5 @@ export const Combobox: React.FC<ComboboxProps> = ({
   );
 };
 
-export default Combobox;
+// Utilisation de React.memo pour éviter les re-rendus inutiles
+export default React.memo(Combobox);

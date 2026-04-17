@@ -1,6 +1,6 @@
 import { useRef, useEffect, useCallback, type ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Download, RefreshCw } from 'lucide-react';
+import { X } from 'lucide-react';
 
 export interface ModalProps {
   /** Whether the modal is open */
@@ -63,12 +63,8 @@ export function Modal({
   onClose,
   title = 'Détails',
   children,
-  showExport = true,
-  showReload = true,
-  onExport,
-  onReload,
   className = '',
-}: ModalProps) {
+}: Readonly<ModalProps>) {
   const modalRef = useRef<HTMLDivElement>(null);
 
   // Close on Escape key
@@ -117,7 +113,7 @@ export function Modal({
         >
           {/* Backdrop overlay */}
           <motion.div
-            className="absolute inset-0 bg-black/10 backdrop-blur-[2px]"
+            className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -129,7 +125,7 @@ export function Modal({
             ref={modalRef}
             className={`
               relative z-10 w-full max-w-4xl
-              bg-white/50 rounded-4xl shadow-lg border border-white backdrop-blur-xl
+            bg-[#e6e6e6]/40 rounded-4xl shadow-lg border border-white backdrop-blur-sm
               flex flex-col
               max-h-[90vh]
               ${className}
@@ -142,7 +138,7 @@ export function Modal({
           >
             {/* Header */}
             <div className="flex items-center justify-between px-6 pt-6 pb-2 sm:px-8 sm:pt-8">
-              <h2 className="text-xl sm:text-3xl font-bold text-gray-900 tracking-tight" style={{ fontFamily: 'Belfius21, sans-serif', fontWeight: 700 }}>
+              <h2 className="text-xl sm:text-3xl font-bold text-white text-shadow-2xl tracking-tight" style={{ fontFamily: 'Belfius21, sans-serif', fontWeight: 700 }}>
                 {title}
               </h2>
 
@@ -166,60 +162,14 @@ export function Modal({
             </div>
 
             {/* Content area */}
-            <div className="flex-1 mx-6 sm:mx-8 my-4 overflow-auto rounded-2xl border border-white bg-[#ddd9d9]/50 min-h-[100px] sm:min-h-[250px] p-4 sm:p-6 backdrop-blur-xl"
+            <div className="flex-1 mx-6 sm:mx-8 my-4 overflow-auto rounded-2xl border border-white bg-[#e6e6e6]/90 min-h-15 sm:min-h-42.5 p-4 sm:p-6 backdrop-blur-xl"
             style={{ fontFamily: 'Belfius21, sans-serif', fontWeight: 400 }}>
               {children}
             </div>
 
             {/* Footer with buttons */}
             <div className="flex items-center justify-end gap-3 px-6 pb-6 sm:px-8 sm:pb-8 pt-2">
-              {showExport && ( 
-                <geui-action-button onClick={onExport} text='Export' type='secondary'></geui-action-button>
-                // <motion.button
-                //   onClick={onExport}
-                //   className="
-                //     flex items-center gap-2
-                //     px-5 py-1.5 sm:px-4 sm:py-1.5
-                //     rounded-full
-                //     border-2 border-[#b3004a]
-                //     text-[#b3004a] bg-transparent
-                //     font-semibold text-sm sm:text-base
-                //     cursor-pointer
-                //     hover:bg-[#b3004a]/10
-                //     transition-all duration-200
-                //   "
-                //   whileHover={{ scale: 1.05 }}
-                //   whileTap={{ scale: 0.95 }}
-                //   id="modal-export-btn"
-                // >
-                //   <Download size={18} strokeWidth={2} />
-                //   Export
-                // </motion.button>
-              )}
-
-              {showReload && ( <geui-action-button onClick={onReload} text='Validate' type='primary'></geui-action-button>
-                // <motion.button
-                //   onClick={onReload}
-                //   className="
-                //     flex items-center gap-2
-                //     px-5 py-1.5 sm:px-6 sm:py-1.5
-                //     rounded-full
-                //     bg-[#b3004a] text-white
-                //     font-medium text-sm sm:text-base
-                //     cursor-pointer 
-                //   border-2 border-[#b3004a]
-                    
-                //     hover:bg-[#9a0040]
-                //     transition-all duration-200
-                //   "
-                //   whileHover={{ scale: 1.05 }}
-                //   whileTap={{ scale: 0.95 }}
-                //   id="modal-reload-btn"
-                // >
-                //   {/* <RefreshCw size={18} strokeWidth={2} /> */}
-                //   Validate
-                // </motion.button>
-              )}
+             
             </div>
           </motion.div>
         </motion.div>
