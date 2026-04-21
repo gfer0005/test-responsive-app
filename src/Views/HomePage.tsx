@@ -26,9 +26,17 @@ function HomePage() {
   const [selectedKpi, setSelectedKpi] = useState<ComboboxOption | null>(null);
   const [kpiList, setKpiList] = useState<V8670Kpi[]>([]);
   const [selectedMonth, setSelectedMonth] = useState<DropdownOption | null>(
-    null,
+    () => {
+      const currentMonth = new Date().getMonth() + 1;
+      return MONTHS.find((m) => m.id === currentMonth) ?? null;
+    },
   );
-  const [selectedYear, setSelectedYear] = useState<DropdownOption | null>(null);
+  const [selectedYear, setSelectedYear] = useState<DropdownOption | null>(
+    () => {
+      const currentYear = new Date().getFullYear();
+      return YEARS.find((y) => y.id === currentYear) ?? null;
+    },
+  );
   const [kpiInputDetails, setKpiInputDetails] = useState<V8670KpiInputDetail[]>(
     [],
   );
@@ -173,7 +181,7 @@ function HomePage() {
             <geui-title-text size="small">MANCO</geui-title-text>
             <Switch
               checked={isMancoActive}
-              onChange={(event) =>
+              onChange={(event: { currentTarget: { checked: boolean | ((prevState: boolean) => boolean); }; }) =>
                 setIsMancoActive(event.currentTarget.checked)
               }
               color="var(--color-belfius)"
@@ -185,7 +193,7 @@ function HomePage() {
             <geui-title-text size="small">MANUAL</geui-title-text>
             <Switch
               checked={isManualActive}
-              onChange={(event) =>
+              onChange={(event: { currentTarget: { checked: boolean | ((prevState: boolean) => boolean); }; }) =>
                 setIsManualActive(event.currentTarget.checked)
               }
               color="var(--color-belfius)"

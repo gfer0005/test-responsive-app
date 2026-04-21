@@ -7,12 +7,22 @@ import ErrorPage from "./components/ErrorPage/ErrorPage";
 import HomePage from "./Views/HomePage";
 import NoAccessPage from "./components/NoAccessPage";
 import useWindowSize from "./hooks/useWindowSize";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import './index.css';
+import { KpiAPI } from "./utils/api"; 
+
 
 
 const RootApp = () => {
   const { isSmallResolution } = useWindowSize();
+  const statLogged = useRef(false);
+
+  useEffect(() => {
+    if (!statLogged.current) {
+      statLogged.current = true;
+      KpiAPI.insertStat().catch((err) => console.warn('Failed to log stat:', err));
+    }
+  }, []);
 
   useEffect(() => {
     if (isSmallResolution) {

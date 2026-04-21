@@ -207,18 +207,20 @@ export function DetailModal({
             </div>
 
             {/* Content area */}
-            <div className="flex-1 mx-6 sm:mx-8 my-5 rounded-3xl bg-[#e6e6e6]/60 border border-white min-h-87.5 p-6 sm:p-8 flex flex-col gap-6 shadow-2xl relative overflow-auto"
+            <div className="flex-1 mx-6 sm:mx-8 my-5 rounded-3xl bg-[#e6e6e6]/60 border border-white min-h-87.5 p-6 sm:p-8 flex flex-col gap-6 shadow-md relative overflow-auto"
             style={{ fontFamily: 'Belfius21, sans-serif' }}>
               {formData && (
                 <>
                   {/* KPI Details Row */}
                   <div className="flex flex-col gap-2 relative z-10">
-                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-2">KPI</label>
+                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-2">
+                      KPI
+                      </label>
                     <input
                       disabled
                       value={formData.kpi || ''}
                       className={`w-full border border-white/80 rounded-2xl px-4 py-3 text-lg font-bold text-gray-800 transition-all focus:outline-none focus:ring-2 focus:ring-[#b3004a]/40 shadow-sm placeholder:text-gray-400 placeholder:font-normal bg-[#e6e6e6]/80`}
-                    />
+                      />
                   </div>
 
                   <div className="flex flex-col sm:flex-row gap-6 relative z-10 pt-2">

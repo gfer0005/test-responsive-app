@@ -145,7 +145,7 @@ export function Table<T extends Record<string, any>>({
   };
 
   return (
-    <div className="w-full bg-white rounded-4xl border border-gray-200 shadow-lg backdrop-blur-2xl flex flex-col font-sans transition-all">
+    <div className="w-full bg-white rounded-3xl border border-gray-200 shadow-md backdrop-blur-2xl flex flex-col font-sans transition-all overflow-hidden">
       <style>{`
         .hide-scrollbar::-webkit-scrollbar {
           display: none;
@@ -163,7 +163,7 @@ export function Table<T extends Record<string, any>>({
         }}
       >
         <table
-          className="w-full text-left border-collapse table-auto break-words"
+          className="w-full text-left border-collapse table-auto wrap-break-word"
           style={{ fontFamily: "Belfius21, sans-serif" }}
         >
           <thead className="sticky top-0 bg-[#c30045] z-10 border-b border-gray-200">
@@ -198,7 +198,7 @@ export function Table<T extends Record<string, any>>({
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-200">
+          <tbody className="divide-y divide-gray-300">
             {sortedData.length > 0 ? (
               sortedData.map((row, rowIndex) => (
                 <tr
@@ -209,7 +209,7 @@ export function Table<T extends Record<string, any>>({
                   {columns.map((col) => (
                     <td
                       key={String(col.key)}
-                      className={`h-[72px] py-2 px-2 text-[11px] leading-[14px] lg:px-4 lg:text-sm lg:leading-normal text-slate-800 break-words whitespace-normal align-middle ${col.cellClassName || ""}`}
+                      className={`h-[72px] py-2 px-2 text-[11px] font-semibold leading-[14px] lg:px-4 lg:text-sm lg:leading-normal text-slate-700 wrap-break-word whitespace-normal align-middle ${col.cellClassName || ""}`}
                       onClick={(e: React.MouseEvent) => {
                         if (col.key === "actions" || col.key === "comments") {
                           e.stopPropagation();

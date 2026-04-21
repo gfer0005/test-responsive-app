@@ -1,1 +1,3 @@
 C:\Users\errarg\source\repos\DataEntryToolReact\dataentrytoolreact.client\obj\Debug\dataentrytoolreact.client.esproj.CoreCompileInputs.cache
+C:\Users\errarg\source\repos\Data Entry Tool React\dataentrytoolreact.client\obj\Debug\dataentrytoolreact.client.esproj.CoreCompileInputs.cache
+R:\source\repos\Data Entry Tool React\dataentrytoolreact.client\obj\Debug\dataentrytoolreact.client.esproj.CoreCompileInputs.cache

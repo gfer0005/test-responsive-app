@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css';
-// import "belfius.geui.client.ui/dist/belfius/lib/ui.js"; // Disabled: internal Belfius lib, not needed in mock mode
+// import "belfius.geui.client.ui/dist/belfius/lib/ui.js";
 import "@mantine/core/styles.css";
 import App from './App.tsx'
 

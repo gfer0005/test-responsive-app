@@ -120,14 +120,16 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
         <span className="flex items-center gap-2 ml-2">
           {selectedOption && clearable && (
-            <button 
+            <span 
+              role="button"
+              tabIndex={0}
               onClick={handleClear}
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleClear(e as unknown as React.MouseEvent); }}
-              className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+              className="p-1 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
               aria-label="Effacer la sélection"
             >
               <X className="w-4 h-4 text-gray-500" />
-            </button>
+            </span>
           )}
           <span className="p-1">
             <ChevronDown 

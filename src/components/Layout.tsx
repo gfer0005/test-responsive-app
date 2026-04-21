@@ -79,14 +79,13 @@ export const Layout: React.FC<LayoutProps> = ({
           {footerContent + ' -'}
           <geui-link text='Need more help ?' onClick={() => setIsOpen(true)}></geui-link>
           <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title="How to use the Data Entry Tool ?">
-            <p className='text-[#c30045] text-xl font-bold'>Note : Please use the tool on your second display for better experience. Currently working to improve better experience with smaller screens.</p>
-            <p>How does the tool works ?</p>
-            <p>1. Select a KPI, a month and a year to display the relevant data.</p>
-            <p>2. Click on a row to view details and add comments or edit KPI values.</p>
-            <p>3. Use the filters to narrow down the data.</p>
-            <p>4. Click on the column headers to sort the data.</p>
-            <p>5. Contact support for any issues or questions.</p>
-            <p className='text-black text-lg font-bold'>For more details check the documentation at : <a className='text-[#c30045] underline' target="_blank" rel="noopener noreferrer" href="https://confluence.belwired.net:8443/spaces/00008203B/pages/291817755/Data+Entry+Tool+2026">Data Entry Tool 2026 Documentation</a></p>
+            <p className='text-2xl font-bold'>How does the tool works ?</p> <br />
+            <p className='text-xl'>1. Select a KPI, a month and a year to display the relevant data.</p>
+            <p className='text-xl'>2. Click on a row to view details and add comments or edit KPI values.</p>
+            <p className='text-xl'>3. Use the filters to narrow down the data.</p>
+            <p className='text-xl'>4. Click on the column headers to sort the data.</p>
+            <p className='text-xl'>5. Contact support for any issues or questions.</p> <br />
+            <p className='text-black text-xl font-bold'>For more details check the documentation at : <a className='text-[#c30045] underline' target="_blank" rel="noopener noreferrer" href="https://confluence.belwired.net:8443/spaces/00008203B/pages/291817755/Data+Entry+Tool+2026">Data Entry Tool 2026 Documentation</a></p>
           </Modal>
         </footer>
       </div>
